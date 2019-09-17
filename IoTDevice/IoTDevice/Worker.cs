@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using IoTDevice.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -12,9 +13,12 @@ namespace IoTDevice
     {
         private readonly ILogger<Worker> _logger;
 
-        public Worker(ILogger<Worker> logger)
+        private readonly ICurrencyService _currencyService;
+
+        public Worker(ILogger<Worker> logger, ICurrencyService currencyService)
         {
             _logger = logger;
+            _currencyService = currencyService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -22,7 +26,16 @@ namespace IoTDevice
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+
+                var currencies = await _currencyService.GetCurrencyConversions();
+
+                foreach (var currency in currencies)
+                {
+                    _logger.LogDebug("Currency: " + currency.Type.ToString() + " = " + currency.Value + " USD");
+                }
+
+                await Task.Delay(10000, stoppingToken);
+                
             }
         }
     }
