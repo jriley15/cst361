@@ -4,23 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IoTDevice.Services
 {
-
     public interface ICurrencyService
     {
         Task<IEnumerable<Currency>> GetCurrencyConversions();
     }
 
-
     public class CurrencyService : ICurrencyService
     {
-
         private readonly IHttpClientFactory _clientFactory;
-
         private readonly ILogger<Worker> _logger;
 
         public CurrencyService(ILogger<Worker> logger, IHttpClientFactory clientFactory)
@@ -31,20 +26,19 @@ namespace IoTDevice.Services
 
         public async Task<IEnumerable<Currency>> GetCurrencyConversions()
         {
-
             var currencies = new List<Currency>();
             var currencyTasks = new List<Task<Currency>>();
 
-            //start http requests for every currency type
+            // Start http requests for every currency type.
             foreach (var currencyType in (CurrencyType[])Enum.GetValues(typeof(CurrencyType)))
             {
                 currencyTasks.Add(GetCurrencyTask(currencyType));
             }
 
-            //wait for them to all finish concurrently
+            // Wait for them to all finish concurrently.
             await Task.WhenAll(currencyTasks);
 
-            //get the values from each task
+            // Get the values from each task.
             foreach (Task<Currency> task in currencyTasks)
             {
                 currencies.Add(await task);
@@ -64,7 +58,7 @@ namespace IoTDevice.Services
             }
             catch (Exception e)
             {
-                //http request failed, happens for CNH every time 
+                // Http request failed. FYI - happens for CNH every time.
                 _logger.LogError("GetCurrencyTask threw exception: " + e.Message);
             }
             return currency;

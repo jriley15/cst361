@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using IoTDevice.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Polly;
-using Microsoft.Extensions.Configuration;
 
 namespace IoTDevice
 {
@@ -22,7 +17,6 @@ namespace IoTDevice
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-
                     services.AddSingleton<ICurrencyService, CurrencyService>();
 
                     services.AddHttpClient("RapidApi", client =>
@@ -41,6 +35,5 @@ namespace IoTDevice
 
                     services.AddHostedService<Worker>();
                 });
-
     }
 }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IoTDevice.Services;
@@ -12,7 +10,6 @@ namespace IoTDevice
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-
         private readonly ICurrencyService _currencyService;
 
         public Worker(ILogger<Worker> logger, ICurrencyService currencyService)
@@ -35,7 +32,6 @@ namespace IoTDevice
                 }
 
                 await Task.Delay(10000, stoppingToken);
-                
             }
         }
     }
