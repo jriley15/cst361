@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:viewAction action="#{authenticationController.removeFromSession()}" />
+</f:metadata>
+      
+<h:head>
+	<title>Login</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition template="/layouts/loggedOutLayout.xhtml">
+	<ui:define name="title">Login</ui:define>
+	<ui:define name="content">
+	
+		<h:form>
+			<div align="center">
+				<h3>Login</h3>
+				Username: <h:inputText id="username" value="#{user.username}" title="" maxlength="25" />
+				<br/>
+				<h:message for="username" style="color:red;margin:8px;" />
+				<br/>
+				Password: <h:inputSecret id="password" value="#{user.password}" title="" maxlength="25" />
+				<br/>
+				<h:message for="password" style="color:red;margin:8px;" />
+				<br/>
+				<h:commandButton action="#{authenticationController.onLogin()}" value="Login" />
+			</div>
+		</h:form>
+		
+	</ui:define>
+	</ui:composition>
+	
+</h:body>
+
+</html>
+

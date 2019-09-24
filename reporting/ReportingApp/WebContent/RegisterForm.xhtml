@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+    <h:head>
+		<title>Register</title>
+	</h:head>
+
+<h:body>
+
+	<ui:composition template="/layouts/loggedOutLayout.xhtml">
+	<ui:define name="title">Register</ui:define>
+	<ui:define name="content">
+
+		<h:form>
+			<div align="center">
+				<h3>Register Page</h3>
+				First Name: <h:inputText id="firstName" value="#{registration.firstName}" title="" maxlength="30" />
+				<br/>
+				<h:message for="firstName" style="color:red;margin:8px;" />
+				<br/>
+				Last Name: <h:inputText id="lastName" value="#{registration.lastName}" title="" maxlength="30" />
+				<br/>
+				<h:message for="lastName" style="color:red;margin:8px;" />
+				<br/>
+				Username: <h:inputText id="username" value="#{registration.username}" title="" maxlength="25" />
+				<br/>
+				<h:message for="username" style="color:red;margin:8px;" />
+				<br/>
+				Password: <h:inputSecret id="password" value="#{registration.password}" title="" maxlength="25" />
+				<br/>
+				<h:message for="password" style="color:red;margin:8px;" />
+				<br/>
+				<h:commandButton action="#{authenticationController.onRegister()}" value="Register" />
+			</div>
+		</h:form>
+		
+	</ui:define>
+	</ui:composition>
+	
+</h:body>
+
+</html>

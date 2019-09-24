@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:viewAction action="#{authenticationController.check}" />
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/layouts/loggedOutLayout.xhtml">
+	<ui:define name="title">An Error Occurred</ui:define>
+	<ui:define name="content">
+
+		<center><h2><h:outputText value="An Error Occurred"></h:outputText></h2></center>	
+	
+	</ui:define>
+	</ui:composition>
+	
+</h:body>
+
+</html>

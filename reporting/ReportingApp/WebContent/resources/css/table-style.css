@@ -1,0 +1,32 @@
+/*
+.css that defines everything that I want the datatables
+to be in my .xhtml pages. I define what the odd and even
+rows in the table will look like.
+*/
+
+.order-table
+{
+	border-collapse:collapse;
+}
+
+.order-table-header
+{
+	text-align:center;
+	background: none repeat scroll 0 0 rgba(192,218,255, 0.8);
+	border-bottom: 1px solid #888888;
+	padding: 16px;
+}
+
+.order-table-odd-row
+{
+	text-align:center;
+	background: none repeat scroll 0 0 rgba(255,255,255,0.5);
+	border-bottom: 1px solid #888888;
+}
+
+.order-table-even-row
+{
+	text-align:center;
+	background: none repeat scroll 0 0 rgba(255,255,255,0.5);
+	border-bottom: 1px solid #888888;
+}

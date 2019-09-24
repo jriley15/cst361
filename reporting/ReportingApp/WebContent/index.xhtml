@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:viewAction action="#{authenticationController.check}" />
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/layouts/commonLayout.xhtml">
+	<ui:define name="title">Currencies</ui:define>
+	<ui:define name="content">
+
+		<center><h2><h:outputText value="International Currencies"></h:outputText></h2></center>
+		<h:dataTable id="currencyTable" binding="#{table}" value="#{currencyController.getAllCurrencies()}" var="currency" class="table table-striped table-hover table-bordered tableUpdated">
+	        <h:column>
+	            <f:facet name="header">Currency</f:facet>
+	            <h:inputText id="currencyName" value="#{currency.currencyName}" title="" />
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Country</f:facet>
+	            <h:inputText id="currencyCountry" value="#{currency.currencyCountry}" title="" />
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Symbol</f:facet>
+	            <h:inputText id="currencySymbol" value="#{currency.currencySymbol}" title="" />
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Exchange Rate ($)</f:facet>
+	            <h:inputText id="currencyUSDExchangeRate" value="#{currency.currencyUSDExchangeRate}" title="" />
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Date</f:facet>
+	            <h:inputText id="dateRecorded" value="#{currency.dateRecorded}" title="" />
+	        </h:column>
+    	</h:dataTable>
+	
+	</ui:define>
+	</ui:composition>
+	
+</h:body>
+
+</html>
