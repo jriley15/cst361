@@ -7,16 +7,13 @@
 	width: 100%;
 }
 
-#page
+body
 {
-	background-image: url("../resources/image/world-background.gif");
-  	position: fixed;
-  	top: 0;
-  	left: 0;
-  	background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-  	min-width: 100%;
-  	min-height: 100%;
-	padding-bottom: 400px;
+	background-image: url("../resources/image/background.jpg");
+  	padding: 0px;
+	height: 100%;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin: 0px;
 }

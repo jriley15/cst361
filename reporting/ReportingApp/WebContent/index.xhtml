@@ -14,6 +14,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<ui:composition template="/layouts/commonLayout.xhtml">
 	<ui:define name="title">Currencies</ui:define>
 	<ui:define name="content">
+	<h:outputScript library="js" name="googlecharts.js" />
 		<br/>
 		<br/>
 		<br/>
@@ -40,6 +41,11 @@ xmlns:f="http://xmlns.jcp.org/jsf/core">
 	            <h:inputText id="dateRecorded" value="#{currency.dateRecorded}" title="" />
 	        </h:column>
     	</h:dataTable>
+    	
+    	<br/>
+    	<br/>
+    	
+    	<center><div id="regions_div" style="width: 85%; height: 500px;"></div></center>
 	
 	</ui:define>
 	</ui:composition>

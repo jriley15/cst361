@@ -15,6 +15,11 @@ public class Currency
 	private double currencyUSDExchangeRate = 0.0;
 	private Timestamp dateRecorded = new Timestamp(0);
 	
+	public Currency()
+	{
+		
+	}
+	
 	public Currency(String currencyISOCode, String currencyName, String currencyCountry, String currencySymbol, double currencyUSDExchangeRate, Timestamp dateRecorded) 
 	{
 		this.currencyISOCode = currencyISOCode;
