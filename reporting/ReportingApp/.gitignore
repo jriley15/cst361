@@ -1,5 +1,7 @@
-.classpath
-.project
-.tern-project
-.settings/*
-build/*
+# Ignore
+
+**/.classpath
+**/.project
+**/.tern-project
+**/.settings/*
+**/build/*

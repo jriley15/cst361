@@ -3,12 +3,27 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
-
-	<ui:composition>
-		<h1>International Currencies</h1>
-		<h:form>
-			<h:button value="Home" outcome="index.xhtml"/>
-			<h:button value="Logout" outcome="LoginForm.xhtml"/>
-		</h:form>
-	</ui:composition>
+  <ui:composition>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">International Currencies</div>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><h:link value="Home" outcome="index.xhtml" /></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+		    <li><h:link value="Logout" outcome="LoginForm.xhtml" /></li>
+		  </ul>
+        </div>
+      </div>
+    </div>
+  </ui:composition> 
 </html>
