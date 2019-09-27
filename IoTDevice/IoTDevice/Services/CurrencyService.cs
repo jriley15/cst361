@@ -24,6 +24,7 @@ namespace IoTDevice.Services
             _clientFactory = clientFactory;
         }
 
+        //kicks of http requests to get currency conversions from api
         public async Task<IEnumerable<Currency>> GetCurrencyConversions()
         {
             var currencies = new List<Currency>();
@@ -47,13 +48,16 @@ namespace IoTDevice.Services
             return currencies;
         }
 
+        //async task for http request
         private async Task<Currency> GetCurrencyTask(CurrencyType currencyType)
         {
             var currency = new Currency() { Type = currencyType };
+            //get http client from factory
             var client = _clientFactory.CreateClient("RapidApi");
 
             try
             {
+                //parse value from api
                 currency.Value = Decimal.Parse(await client.GetStringAsync("/exchange?q=1&from=" + currencyType.ToString() + "&to=USD"), NumberStyles.Float);
             }
             catch (Exception e)

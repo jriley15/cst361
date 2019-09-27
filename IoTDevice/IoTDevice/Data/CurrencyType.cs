@@ -1,5 +1,7 @@
 ﻿namespace IoTDevice.Data
 {
+    //currency type enum
+
     public enum CurrencyType
     {
         SGD,

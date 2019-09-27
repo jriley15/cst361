@@ -18,19 +18,23 @@ namespace IoTDevice
             _currencyService = currencyService;
         }
 
+        //main application loop
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
+                //fetch currencies
                 var currencies = await _currencyService.GetCurrencyConversions();
 
+                //log currencies to console
                 foreach (var currency in currencies)
                 {
                     _logger.LogDebug("Currency: " + currency.Type.ToString() + " = " + currency.Value + " USD");
                 }
 
+                //sleep for 10 seconds
                 await Task.Delay(10000, stoppingToken);
             }
         }

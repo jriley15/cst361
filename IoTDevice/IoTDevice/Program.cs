@@ -17,8 +17,10 @@ namespace IoTDevice
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    //add currency service singleton service to container
                     services.AddSingleton<ICurrencyService, CurrencyService>();
 
+                    //adds http client to container
                     services.AddHttpClient("RapidApi", client =>
                     {
                         client.BaseAddress = new Uri(hostContext.Configuration["RapidAPIURL"]);
@@ -33,6 +35,7 @@ namespace IoTDevice
                     //    TimeSpan.FromSeconds(10)
                     //}));
 
+                    //adds worker to container and begins executing it
                     services.AddHostedService<Worker>();
                 });
     }

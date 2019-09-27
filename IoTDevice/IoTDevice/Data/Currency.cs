@@ -2,6 +2,7 @@
 
 namespace IoTDevice.Data
 {
+    //currency data model
     public class Currency
     {
         public CurrencyType Type { get; set; }
