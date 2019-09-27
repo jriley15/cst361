@@ -8,14 +8,26 @@ import com.reportingapp.beans.Registration;
 import com.reportingapp.beans.User;
 import com.reportingapp.services.data.AuthenticationDAO;
 
+// Trevor Moore
+// CST 361
+// 09/29/2019
+// This assignment was completed in collaboration with Jordan Riley.
+
+/**
+ * Authentication Service for handling logic concerning logging in and registering.
+ * @author Trevor
+ *
+ */
 @Stateless
 @Local(IAuthenticationService.class)
 @Alternative
 public class AuthenticationService implements IAuthenticationService
 {
+	// EJB Property of our AuthenticationDAO.
 	@EJB
-	AuthenticationDAO service;
+	private AuthenticationDAO service;
 	
+	// Default constructor.
 	public AuthenticationService()
 	{
 	}
@@ -30,9 +42,10 @@ public class AuthenticationService implements IAuthenticationService
 	{
 		try 
 		{
-			System.out.println("------------------> IN LOGIN SERVICE BITCH!!!");
+			// Call the registerUser method on our DAO passing in the Registration object.
 			service.registerUser(user);
-		} 
+		}
+		// Catch any exceptions and throw it.
 		catch (Exception e) 
 		{
 			throw e;
@@ -50,8 +63,10 @@ public class AuthenticationService implements IAuthenticationService
 	{
 		try 
 		{
+			// Call loginCheck on our DAO passing in the User object.
 			return service.loginCheck(user);
-		} 
+		}
+		// Catch any exceptions and throw it.
 		catch (Exception e) 
 		{
 			throw e;

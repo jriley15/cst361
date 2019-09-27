@@ -4,10 +4,21 @@ import java.sql.Timestamp;
 import javax.faces.bean.ManagedBean;
 import javax.xml.bind.annotation.XmlRootElement;
 
+// Trevor Moore
+// CST 361
+// 09/29/2019
+// This assignment was completed in collaboration with Jordan Riley.
+
+/**
+ * Bean for storing Currency data.
+ * @author Trevor
+ *
+ */
 @ManagedBean
 @XmlRootElement(name="Currency")
 public class Currency
 {
+	// Properties
 	private String currencyISOCode = "";
 	private String currencyName = "";
 	private String currencyCountry = "";

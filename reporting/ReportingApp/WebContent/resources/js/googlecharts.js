@@ -1,30 +1,50 @@
+// Trevor Moore
+// CST 361
+// 09/29/2019
+// This assignment was completed in collaboration with Jordan Riley.
+// We used source code from the following websites to complete this assignment:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+
+
 /**
  * Include in views that render Google Charts.
  */
 
+	// define array of arrays which will hold our headers and currency data.
 	var currencyData = [['Country', 'Exchange Rate ($)']];
+	// declare empty arrays for country and exchange rate data.
 	var countries = [];
 	var exchangeRates = [];
 
+	// use the fetch API to hit our CurrencyREST endpoint
 	fetch('/ReportingApp/rest/currency/getcurrencies', {
 		method: 'GET'
 	})
+	// convert the response to JSON
 	.then((response) => {
 		return response.json();
 	})
+	// handle data
 	.then(data => {
+		// fill the country array with the response country data
 		countries = data.map(currency => { return currency.currencyCountry });
+		// fill the exchange rate array with the response exchange rate data
 		exchangeRates = data.map(currency => { return currency.currencyUSDExchangeRate });
 
+		// loop through the country length and fill the currency data array with our country and exchange rate data
 		for (var n = 0; n < countries.length; n++) {
 			currencyData.push([countries[n], exchangeRates[n]]);
 		}
 	})
+	// catch any errors
 	.catch(error => {
+		// print the error to the console and alert the user
 		console.error(error);
 		alert('An error occured.');
 	});
 
+	// call on the Google GeoChart API to fill our div with the currency data
+	// retrieved this boiler plate code from: https://developers.google.com/chart/interactive/docs/gallery/geochart
 	google.charts.load('current', {
 		'packages':['geochart'],
 	 	'mapsApiKey': 'AIzaSyAofTrkfRftX9aK7IoCk30wRE9-Y7jabsI'
@@ -37,6 +57,7 @@
 		chart.draw(data, {});
 	}
 	
+	/// Retrieved the following Polyfill from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 	// Production steps of ECMA-262, Edition 5, 15.4.4.19
 	// Reference: http://es5.github.io/#x15.4.4.19
 	if (!Array.prototype.map) {
