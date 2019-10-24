@@ -23,4 +23,11 @@ public interface ICurrencyService
 	 * @throws Exception
 	 */
 	public List<Currency> getAllCurrencies() throws Exception;
+	
+	/**
+	 * Method for adding or updating a list of currencies in the database.
+	 * @return boolean
+	 * @throws Exception
+	 */
+	public boolean addOrUpdateCurrencies(List<Currency> currencies) throws Exception;
 }

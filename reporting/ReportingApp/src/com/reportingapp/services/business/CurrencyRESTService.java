@@ -6,10 +6,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import com.reportingapp.beans.Currency;
+import com.reportingapp.beans.DTO;
 
 // Trevor Moore
 // CST 361
@@ -52,6 +54,32 @@ public class CurrencyRESTService
 			e.printStackTrace();
 			// Return an empty array list of currency.
 			return new ArrayList<Currency>();
+		}
+	}
+	
+	/**
+	 * Method for adding a currency to the database
+	 * @return
+	 */
+	@POST
+	@Path("/addorupdatecurrencies")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public DTO addCurrenciesAsJson(List<Currency> currencies)
+	{
+		try
+		{
+			if (service.addOrUpdateCurrencies(currencies)) {
+				return new DTO(200, "Ok.", currencies);
+			}
+			else {
+				return new DTO(500, "An error occured on the server.", null);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return new DTO(500, "An error occured on the server.", null);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.reportingapp.services.business;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -43,7 +44,44 @@ public class CurrencyService implements ICurrencyService
 		try
 		{
 			// Return all currencies calling on our DAO.
-			return service.getAllCurrencies();			
+			return service.getAll();			
+		}
+		// Catch any exceptions and throw it.
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	/**
+	 * Method for returning adding or updating a currency in the database.
+	 * @return boolean
+	 * @throws Exception
+	 */
+	@Override
+	public boolean addOrUpdateCurrencies(List<Currency> currencies) throws Exception
+	{
+		try
+		{
+			// Get all currency names in the database
+			List<String> currentISOCodes = new ArrayList<String>();
+			for (Currency currency : service.getAll()) {
+				currentISOCodes.add(currency.getCurrencyISOCode());
+			}
+			// Check if currencies being added or updated exist
+			for (Currency currency : currencies) {
+				if (currentISOCodes.contains(currency.getCurrencyISOCode())) {
+					if (!service.update(currency)) {
+						return false;
+					}
+				}		
+				else {
+					if (!service.add(currency)) {
+						return false;
+					}
+				}
+			}
+			return true;
 		}
 		// Catch any exceptions and throw it.
 		catch(Exception e)

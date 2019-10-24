@@ -24,14 +24,14 @@ public class Currency
 	private String currencyCountry = "";
 	private String currencySymbol = "";
 	private double currencyUSDExchangeRate = 0.0;
-	private Timestamp dateRecorded = new Timestamp(0);
+	private String dateRecorded = "";
 	
 	public Currency()
 	{
 		
 	}
 	
-	public Currency(String currencyISOCode, String currencyName, String currencyCountry, String currencySymbol, double currencyUSDExchangeRate, Timestamp dateRecorded) 
+	public Currency(String currencyISOCode, String currencyName, String currencyCountry, String currencySymbol, double currencyUSDExchangeRate, String dateRecorded) 
 	{
 		this.currencyISOCode = currencyISOCode;
 		this.currencyName = currencyName;
@@ -71,10 +71,10 @@ public class Currency
 	public void setCurrencyUSDExchangeRate(double currencyUSDExchangeRate) {
 		this.currencyUSDExchangeRate = currencyUSDExchangeRate;
 	}
-	public Timestamp getDateRecorded() {
+	public String getDateRecorded() {
 		return dateRecorded;
 	}
-	public void setDateRecorded(Timestamp dateRecorded) {
+	public void setDateRecorded(String dateRecorded) {
 		this.dateRecorded = dateRecorded;
 	}
 }
