@@ -76,13 +76,15 @@ namespace IoTDevice.Services
             return currency;
         }
 
+        //sends updated currency values to the JavaEE REST API
         public Task<bool> SyncCurrencyValues(List<CurrencyDto> currencyDtos)
         {
+            //create a new http client
             var client = _clientFactory.CreateClient("JavaEERest");
 
             try
             {
-
+                //post list of currency dto's to the rest endpoint
                 client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
 
                 return Task.FromResult(true);

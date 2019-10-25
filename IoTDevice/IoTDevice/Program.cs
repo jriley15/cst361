@@ -31,7 +31,7 @@ namespace IoTDevice
 
                     services.AddHttpClient("JavaEERest", client =>
                     {
-                        client.BaseAddress = new Uri("http://localhost:8080/ReportingApp/rest/currency/addorupdatecurrencies");
+                        client.BaseAddress = new Uri("http://localhost:8080/ReportingApp");
                         client.Timeout = TimeSpan.FromSeconds(3);
                     });
                     //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
