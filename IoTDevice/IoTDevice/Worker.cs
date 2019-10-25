@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IoTDevice.Services;
@@ -26,12 +27,14 @@ namespace IoTDevice
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 //fetch currencies
-                var currencies = await _currencyService.GetCurrencyConversions();
+                var currencies = (await _currencyService.GetCurrencyConversions()).ToList();
+
+                var syncSuccessful = await _currencyService.SyncCurrencyValues(currencies);
 
                 //log currencies to console
                 foreach (var currency in currencies)
                 {
-                    _logger.LogDebug("Currency: " + currency.Type.ToString() + " = " + currency.Value + " USD");
+                    _logger.LogDebug("Currency: " + currency.currencyISOCode + " = " + currency.currencyUSDExchangeRate + " USD");
                 }
 
                 //sleep for 10 seconds

@@ -1,16 +1,20 @@
 ﻿using IoTDevice.Data;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IoTDevice.Services
 {
     public interface ICurrencyService
     {
-        Task<IEnumerable<Currency>> GetCurrencyConversions();
+        Task<IEnumerable<CurrencyDto>> GetCurrencyConversions();
+
+        Task<bool> SyncCurrencyValues(List<CurrencyDto> currencyDtos);
     }
 
     public class CurrencyService : ICurrencyService
@@ -25,9 +29,9 @@ namespace IoTDevice.Services
         }
 
         //kicks of http requests to get currency conversions from api
-        public async Task<IEnumerable<Currency>> GetCurrencyConversions()
+        public async Task<IEnumerable<CurrencyDto>> GetCurrencyConversions()
         {
-            var currencies = new List<Currency>();
+            var currencies = new List<CurrencyDto>();
             var currencyTasks = new List<Task<Currency>>();
 
             // Start http requests for every currency type.
@@ -42,7 +46,11 @@ namespace IoTDevice.Services
             // Get the values from each task.
             foreach (Task<Currency> task in currencyTasks)
             {
-                currencies.Add(await task);
+                //await the async fetch
+                var currency = await task;
+
+                //dto mapping
+                currencies.Add(new CurrencyDto() { currencyISOCode = currency.Type.ToString(), currencyUSDExchangeRate = currency.Value });
             }
 
             return currencies;
@@ -66,6 +74,26 @@ namespace IoTDevice.Services
                 _logger.LogError("GetCurrencyTask threw exception: " + e.Message);
             }
             return currency;
+        }
+
+        public Task<bool> SyncCurrencyValues(List<CurrencyDto> currencyDtos)
+        {
+            var client = _clientFactory.CreateClient("JavaEERest");
+
+            try
+            {
+
+                client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
+
+                return Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                // Http request failed.
+                _logger.LogError("GetCurrencyTask threw exception: " + e.Message);
+            }
+
+            return Task.FromResult(false);
         }
     }
 }

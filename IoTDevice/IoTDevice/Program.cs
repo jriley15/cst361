@@ -28,6 +28,12 @@ namespace IoTDevice
                         client.DefaultRequestHeaders.Add("x-rapidapi-key", hostContext.Configuration["RapidAPIKey"]);
                         client.Timeout = TimeSpan.FromSeconds(3);
                     });
+
+                    services.AddHttpClient("JavaEERest", client =>
+                    {
+                        client.BaseAddress = new Uri("http://localhost:8080/ReportingApp/rest/currency/addorupdatecurrencies");
+                        client.Timeout = TimeSpan.FromSeconds(3);
+                    });
                     //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
                     //{
                     //    TimeSpan.FromSeconds(1),
