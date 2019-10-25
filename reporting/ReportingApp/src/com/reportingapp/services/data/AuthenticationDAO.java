@@ -5,11 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.reportingapp.beans.Registration;
-import com.reportingapp.beans.User;
 
 // Trevor Moore
 // CST 361
@@ -22,30 +23,87 @@ import com.reportingapp.beans.User;
  *
  */
 @Stateless
-@Local(IAuthenticationDAO.class)
+@Local(IDAO.class)
 @LocalBean
-public class AuthenticationDAO implements IAuthenticationDAO
-{
+public class AuthenticationDAO implements IDAO<Registration> {
 	// Default constructor.
-	public AuthenticationDAO()
-	{
+	public AuthenticationDAO() {
 	}
-	
 	/**
-	 * Method for registering a user in the database.
+	 * Method for getting all objects from the database.
 	 */
 	@Override
-	public void registerUser(Registration user) throws Exception 
-	{
+	public List<Registration> getAll() throws Exception {
 		// Defining SQL statement, connecting string, username, and password to database.
 		Connection conn = null;
-		String url = "jdbc:derby:C:\\Users\\Trevor\\ReportingApp";
-		String username = "username";
-		String password = "password";
-		String sql = "INSERT INTO IOTapp.Authentication(FIRST_NAME, LAST_NAME, USERNAME, PASSWORD) VALUES('" + user.getFirstName() + "', '" + user.getLastName() +"', '" + user.getUsername() + "', '" + user.getPassword() +"')";
+		String url = "jdbc:mysql://tkck4yllxdrw0bhi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjr9k7s8xz19nnga";
+		String username = "vqof07ohtf203y72";
+		String password = "z7ds5u9r4qk4db8m";
 		
-		try 
-		{
+		// Initialize empty array list of currency.
+		List<Registration> users = new ArrayList<Registration>();
+				
+		try {
+			// Connect to the database.
+			conn = DriverManager.getConnection(url, username, password);
+			
+			// Defining SQL statement
+			String sql = "SELECT * FROM Authentication";
+			
+			// Execute SQL Query and loop over result set.
+			Statement stmnt = conn.createStatement();
+			ResultSet rs = stmnt.executeQuery(sql);
+			
+			// While there is another row add the user data to the list.:
+			while(rs.next())
+				users.add(new Registration(rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("USERNAME"), rs.getString("PASSWORD")));
+			
+			// Close the result set and statement.
+			rs.close();
+			stmnt.close();
+		}
+		// Catch any exceptions and print the stack trace.
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		// Closing connection.
+		finally {
+			if(conn != null) {
+				try {
+					// Close the connection.
+					conn.close();
+				}
+				// Catch any exceptions and print the stack trace.
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		// Return the list of currency.
+		return users;
+	}
+	/**
+	 * Method for getting one object from the database using an id.
+	 */
+	@Override
+	public Registration get(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/**
+	 * Method for adding an object to the database.
+	 */
+	@Override
+	public boolean add(Registration user) throws Exception {
+		// Defining SQL statement, connecting string, username, and password to database.
+		Connection conn = null;
+		String url = "jdbc:mysql://tkck4yllxdrw0bhi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjr9k7s8xz19nnga";
+		String username = "vqof07ohtf203y72";
+		String password = "z7ds5u9r4qk4db8m";
+		String sql = "INSERT INTO Authentication(FIRST_NAME, LAST_NAME, USERNAME, PASSWORD) VALUES('" + user.getFirstName() + "', '" + user.getLastName() +"', '" + user.getUsername() + "', '" + user.getPassword() +"')";
+		
+		try {
 			// Connect to the database.
 			conn = DriverManager.getConnection(url, username, password);
 
@@ -55,86 +113,41 @@ public class AuthenticationDAO implements IAuthenticationDAO
 			
 		}
 		// Catching exceptions and throw it.
-		catch (Exception e) 
-		{
-			throw e;
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		// Closing connection.
-		finally
-		{
-			if (conn != null)
-			{
-				try 
-				{
-					// Close the connection
-					conn.close();
-				}
-				// Catching exceptions and print the stack trace.
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Method for checking if a user exists in the authentication table (logging in).
-	 */
-	@Override
-	public boolean loginCheck(User user) throws Exception 
-	{
-		// Set result as bool default to false.
-		boolean result = false;
-		// Defining SQL statement, connecting string, username, and password to database.
-		Connection conn = null;
-		String url = "jdbc:derby:C:\\Users\\Trevor\\ReportingApp";
-		String username = "username";
-		String password = "password";
-		String sql = "SELECT * FROM IOTapp.Authentication WHERE USERNAME = '" + user.getUsername() + "' AND PASSWORD = '" + user.getPassword() + "'";
-		
-		try 
-		{
-			// Connect to the database.
-			conn = DriverManager.getConnection(url, username, password);
-			
-			// Execute SQL Query.
-			Statement stmnt = conn.createStatement();
-			ResultSet rs = stmnt.executeQuery(sql);
-			
-			// Set result to true if there was a row returned.
-			if (rs.next())
-			{
-				result = true;				
-			}
-			
-			// Close the result set.
-			rs.close();
-		}
-		// Catch any Exceptions and throw it.
-		catch (Exception e) 
-		{
-			throw e;
-		}
-		// Closing connection.
-		finally
-		{
-			if (conn != null)
-			{
-				try 
-				{
+		finally {
+			if (conn != null) {
+				try {
 					// Close the connection.
 					conn.close();
 				}
-				// Catch any Exceptions and print the stack trace.
-				catch (SQLException e)
-				{
+				// Catching exceptions and print the stack trace.
+				catch (SQLException e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
 		}
-		
-		// return the bool result.
-		return result;
+		// Return true on success.
+		return true;
+	}
+	/**
+	 * Method for updating an object in the database.
+	 */
+	@Override
+	public boolean update(Registration object) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * Method for deleting an object from the database.
+	 */
+	@Override
+	public boolean delete(Registration object) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

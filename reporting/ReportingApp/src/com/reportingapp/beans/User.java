@@ -17,22 +17,21 @@ import javax.validation.constraints.Size;
  */
 @ManagedBean
 @ViewScoped
-public class User
-{
+public class User {
 	// Properties with validation
 	@NotNull(message = "Username cannot be left blank. This is a required field.")
 	@Size(min=8, max=25)
 	private String username = "";
-	
 	@NotNull(message = "Password cannot be left blank. This is a required field.")
 	@Size(min=8, max=25)
 	private String password = "";
-	
-	public User() 
-	{
+	public User() {
 
 	}
-	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 	public String getUsername() {
 		return username;
 	}

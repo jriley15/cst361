@@ -22,7 +22,7 @@ public interface IAuthenticationService
 	 * @param user type Register
 	 * @throws Exception 
 	 */
-	public void registerUser(Registration user) throws Exception;
+	public boolean registerUser(Registration user) throws Exception;
 	/**
 	 * Method for checking if user's username and password is in database by using the DataConnection class's methods.
 	 * @param user type Register

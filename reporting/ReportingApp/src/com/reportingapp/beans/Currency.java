@@ -1,6 +1,5 @@
 package com.reportingapp.beans;
 
-import java.sql.Timestamp;
 import javax.faces.bean.ManagedBean;
 import javax.xml.bind.annotation.XmlRootElement;
 
