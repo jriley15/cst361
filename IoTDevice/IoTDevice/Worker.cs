@@ -29,6 +29,7 @@ namespace IoTDevice
                 //fetch currencies
                 var currencies = (await _currencyService.GetCurrencyConversions()).ToList();
 
+                //sends updated currency values to the JavaEE REST api
                 var syncSuccessful = await _currencyService.SyncCurrencyValues(currencies);
 
                 //log currencies to console

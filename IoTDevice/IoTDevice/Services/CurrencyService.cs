@@ -77,7 +77,7 @@ namespace IoTDevice.Services
         }
 
         //sends updated currency values to the JavaEE REST API
-        public Task<bool> SyncCurrencyValues(List<CurrencyDto> currencyDtos)
+        public async Task<bool> SyncCurrencyValues(List<CurrencyDto> currencyDtos)
         {
             //create a new http client
             var client = _clientFactory.CreateClient("JavaEERest");
@@ -85,17 +85,17 @@ namespace IoTDevice.Services
             try
             {
                 //post list of currency dto's to the rest endpoint
-                client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
+                await client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
 
-                return Task.FromResult(true);
+                return true;
             }
             catch (Exception e)
             {
                 // Http request failed.
-                _logger.LogError("GetCurrencyTask threw exception: " + e.Message);
+                _logger.LogError("SyncCurrencyValues threw exception: " + e.Message);
             }
 
-            return Task.FromResult(false);
+            return false;
         }
     }
 }
