@@ -82,8 +82,8 @@ namespace IoTDevice.Services
 
             try
             {
-
-                client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
+			
+				client.PostAsync("/ReportingApp/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
 
                 return Task.FromResult(true);
             }

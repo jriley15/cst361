@@ -37,8 +37,8 @@ namespace IoTDevice
                     _logger.LogDebug("Currency: " + currency.currencyISOCode + " = " + currency.currencyUSDExchangeRate + " USD");
                 }
 
-                //sleep for 10 seconds
-                await Task.Delay(10000, stoppingToken);
+                //sleep for 20 seconds
+                await Task.Delay(20000, stoppingToken);
             }
         }
     }

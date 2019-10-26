@@ -9,7 +9,7 @@
 /**
  * Include in views that render Google Charts.
  */
-
+	
 	// define array of arrays which will hold our headers and currency data.
 	var currencyData = [['Country', 'Exchange Rate ($)']];
 	// declare empty arrays for country and exchange rate data.
@@ -25,16 +25,28 @@
 		return response.json();
 	})
 	// handle data
-	.then(data => {
+	.then(json => {
 		// fill the country array with the response country data
-		countries = data.map(currency => { return currency.currencyCountry });
+		countries = json.data.map(currency => { return currency.currencyCountry });
 		// fill the exchange rate array with the response exchange rate data
-		exchangeRates = data.map(currency => { return currency.currencyUSDExchangeRate });
+		exchangeRates = json.data.map(currency => { return currency.currencyUSDExchangeRate });
 
 		// loop through the country length and fill the currency data array with our country and exchange rate data
 		for (var n = 0; n < countries.length; n++) {
 			currencyData.push([countries[n], exchangeRates[n]]);
 		}
+		
+		// call on the Google GeoChart API to fill our div with the currency data
+		// retrieved this boiler plate code from: https://developers.google.com/chart/interactive/docs/gallery/geochart
+		google.charts.load('current', {
+			'packages':['geochart'],
+			'mapsApiKey': 'AIzaSyAofTrkfRftX9aK7IoCk30wRE9-Y7jabsI'
+		});
+		google.charts.setOnLoadCallback(() => {
+			var data = google.visualization.arrayToDataTable(currencyData);
+			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+			chart.draw(data, {});
+		});
 	})
 	// catch any errors
 	.catch(error => {
@@ -42,20 +54,6 @@
 		console.error(error);
 		alert('An error occured.');
 	});
-
-	// call on the Google GeoChart API to fill our div with the currency data
-	// retrieved this boiler plate code from: https://developers.google.com/chart/interactive/docs/gallery/geochart
-	google.charts.load('current', {
-		'packages':['geochart'],
-	 	'mapsApiKey': 'AIzaSyAofTrkfRftX9aK7IoCk30wRE9-Y7jabsI'
-	});
-	google.charts.setOnLoadCallback(drawRegionsMap);
-	
-	function drawRegionsMap() {
-		var data = google.visualization.arrayToDataTable(currencyData);
-		var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-		chart.draw(data, {});
-	}
 	
 	/// Retrieved the following Polyfill from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 	// Production steps of ECMA-262, Edition 5, 15.4.4.19
@@ -147,6 +145,3 @@
 	    return A;
 	  };
 	}
-	
-	
-	

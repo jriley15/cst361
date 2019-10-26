@@ -28,12 +28,10 @@ import com.reportingapp.beans.DTO;
 @Path("/currency")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class CurrencyRESTService 
-{
+public class CurrencyRESTService {
 	// Inject our Currency Service.
 	@Inject
 	private ICurrencyService service;
-	
 	/**
 	 * Method for returning all currency data in the database.
 	 * @return
@@ -41,34 +39,29 @@ public class CurrencyRESTService
 	@GET
 	@Path("/getcurrencies")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Currency> getCurrenciesAsJson()
-	{
-		try
-		{
+	public DTO getCurrenciesAsJson() {
+		try {
 			// Call getAllCurrencies on our Currency Service.
-			return service.getAllCurrencies();
+			return new DTO(200, "Ok.", service.getAllCurrencies());
 		}
 		// Catch any exceptions and print the stack trace.
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 			// Return an empty array list of currency.
-			return new ArrayList<Currency>();
+			return new DTO(500, "An error occured on the server.", new ArrayList<Currency>());
 		}
 	}
-	
 	/**
-	 * Method for adding a currency to the database
+	 * Method for adding and updating currencies in the database - to be consumed by our IoT Device.
 	 * @return
 	 */
 	@POST
 	@Path("/addorupdatecurrencies")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public DTO addCurrenciesAsJson(List<Currency> currencies)
-	{
-		try
-		{
+	public DTO addOrUpdateCurrenciesAsJson(List<Currency> currencies) {
+		try {
+			// Call add or update on our Currency Service.
 			if (service.addOrUpdateCurrencies(currencies)) {
 				return new DTO(200, "Ok.", currencies);
 			}
@@ -76,9 +69,10 @@ public class CurrencyRESTService
 				return new DTO(500, "An error occured on the server.", null);
 			}
 		}
-		catch (Exception e)
-		{
+		// Catch any exceptions and print the stack trace.
+		catch (Exception e) {
 			e.printStackTrace();
+			// Return appropriate message
 			return new DTO(500, "An error occured on the server.", null);
 		}
 	}
