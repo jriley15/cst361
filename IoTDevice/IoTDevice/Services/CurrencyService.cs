@@ -85,7 +85,7 @@ namespace IoTDevice.Services
             try
             {
                 //post list of currency dto's to the rest endpoint
-                await client.PostAsync("/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
+                await client.PostAsync("/ReportingApp/rest/currency/addorupdatecurrencies", new StringContent(JsonConvert.SerializeObject(currencyDtos), Encoding.UTF8, "application/json"));
 
                 return true;
             }

@@ -32,8 +32,8 @@ namespace IoTDevice
                     //JavaEE REST API client
                     services.AddHttpClient("JavaEERest", client =>
                     {
-                        client.BaseAddress = new Uri("http://localhost:8080/ReportingApp");
-                        client.Timeout = TimeSpan.FromSeconds(3);
+                        client.BaseAddress = new Uri("http://localhost:8080");
+                        client.Timeout = TimeSpan.FromSeconds(5);
                     });
 
                     //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
