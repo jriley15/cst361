@@ -29,11 +29,13 @@ namespace IoTDevice
                         client.Timeout = TimeSpan.FromSeconds(3);
                     });
 
+                    //JavaEE REST API client
                     services.AddHttpClient("JavaEERest", client =>
                     {
-						client.BaseAddress = new Uri("http://localhost:8080/");
+                        client.BaseAddress = new Uri("http://localhost:8080");
                         client.Timeout = TimeSpan.FromSeconds(5);
                     });
+
                     //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
                     //{
                     //    TimeSpan.FromSeconds(1),

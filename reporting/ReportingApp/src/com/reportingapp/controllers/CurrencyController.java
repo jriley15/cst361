@@ -20,21 +20,26 @@ import com.reportingapp.services.business.ICurrencyService;
  */
 @ManagedBean
 @ViewScoped
-public class CurrencyController {
+public class CurrencyController 
+{
 	// Inject our Currency Service.
 	@Inject
 	ICurrencyService currencyService;
+	
 	/**
 	 * Method for returning all currency data in the database.
 	 * @return List<Currency>
 	 */
-	public List<Currency> getAllCurrencies() {
-		try {
+	public List<Currency> getAllCurrencies() 
+	{
+		try 
+		{
 			// Call getAllCurrencies on our currency service.
 			return currencyService.getAllCurrencies();
 		}
 		// Catch any exceptions and print the stack trace.
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		// Return an empty array list of currency if something went wrong.

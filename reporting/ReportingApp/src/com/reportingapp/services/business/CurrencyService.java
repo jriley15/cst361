@@ -22,13 +22,17 @@ import com.reportingapp.services.data.CurrencyDAO;
 @Stateless
 @Local(ICurrencyService.class)
 @Alternative
-public class CurrencyService implements ICurrencyService {
+public class CurrencyService implements ICurrencyService
+{
 	// EJB Property of our CurrencyDAO.
 	@EJB
 	private CurrencyDAO service;
+	
 	// Default constructor.
-	public CurrencyService() {
+	public CurrencyService()
+	{
 	}
+	
 	/**
 	 * Method for returning all currencies in the database which will call on our DAO.
 	 * @return List<Currency>
@@ -48,6 +52,7 @@ public class CurrencyService implements ICurrencyService {
 			throw e;
 		}
 	}
+	
 	/**
 	 * Method for returning adding or updating a currency in the database.
 	 * @return boolean

@@ -28,10 +28,12 @@ import com.reportingapp.beans.DTO;
 @Path("/currency")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class CurrencyRESTService {
+public class CurrencyRESTService 
+{
 	// Inject our Currency Service.
 	@Inject
 	private ICurrencyService service;
+	
 	/**
 	 * Method for returning all currency data in the database.
 	 * @return
@@ -39,29 +41,34 @@ public class CurrencyRESTService {
 	@GET
 	@Path("/getcurrencies")
 	@Produces(MediaType.APPLICATION_JSON)
-	public DTO getCurrenciesAsJson() {
-		try {
+	public List<Currency> getCurrenciesAsJson()
+	{
+		try
+		{
 			// Call getAllCurrencies on our Currency Service.
-			return new DTO(200, "Ok.", service.getAllCurrencies());
+			return service.getAllCurrencies();
 		}
 		// Catch any exceptions and print the stack trace.
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			// Return an empty array list of currency.
-			return new DTO(500, "An error occured on the server.", new ArrayList<Currency>());
+			return new ArrayList<Currency>();
 		}
 	}
+	
 	/**
-	 * Method for adding and updating currencies in the database - to be consumed by our IoT Device.
+	 * Method for adding a currency to the database
 	 * @return
 	 */
 	@POST
 	@Path("/addorupdatecurrencies")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public DTO addOrUpdateCurrenciesAsJson(List<Currency> currencies) {
-		try {
-			// Call add or update on our Currency Service.
+	public DTO addCurrenciesAsJson(List<Currency> currencies)
+	{
+		try
+		{
 			if (service.addOrUpdateCurrencies(currencies)) {
 				return new DTO(200, "Ok.", currencies);
 			}
@@ -69,10 +76,9 @@ public class CurrencyRESTService {
 				return new DTO(500, "An error occured on the server.", null);
 			}
 		}
-		// Catch any exceptions and print the stack trace.
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			// Return appropriate message
 			return new DTO(500, "An error occured on the server.", null);
 		}
 	}
