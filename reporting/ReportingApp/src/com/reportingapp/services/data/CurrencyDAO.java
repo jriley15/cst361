@@ -38,9 +38,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 	public List<Currency> getAll() throws Exception {
 		// Defining SQL statement, connecting string, username, and password to database.
 		Connection conn = null;
-		String url = "jdbc:mysql://tkck4yllxdrw0bhi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjr9k7s8xz19nnga";
-		String username = "vqof07ohtf203y72";
-		String password = "z7ds5u9r4qk4db8m";
+		String url = "jdbc:mysql://nj5rh9gto1v5n05t.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ghyhewjoohjciki4";
+		String username = "t74flbsvr87xpkgq";
+		String password = "ljkukrmmfw0pwtue";
 		
 		// Initialize empty array list of currency.
 		List<Currency> currencies = new ArrayList<Currency>();
@@ -100,9 +100,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 	public boolean add(Currency currency) throws Exception {
 		// Defining SQL statement, connecting string, username, and password to database.
 		Connection conn = null;
-		String url = "jdbc:mysql://tkck4yllxdrw0bhi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjr9k7s8xz19nnga";
-		String username = "vqof07ohtf203y72";
-		String password = "z7ds5u9r4qk4db8m";
+		String url = "jdbc:mysql://nj5rh9gto1v5n05t.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ghyhewjoohjciki4";
+		String username = "t74flbsvr87xpkgq";
+		String password = "ljkukrmmfw0pwtue";
 		
 		// try catch the following:
 		try {				
@@ -147,9 +147,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 	public boolean update(Currency currency) throws Exception {
 		// Defining SQL statement, connecting string, username, and password to database:
 		Connection conn = null;
-		String url = "jdbc:mysql://tkck4yllxdrw0bhi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjr9k7s8xz19nnga";
-		String username = "vqof07ohtf203y72";
-		String password = "z7ds5u9r4qk4db8m";
+		String url = "jdbc:mysql://nj5rh9gto1v5n05t.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ghyhewjoohjciki4";
+		String username = "t74flbsvr87xpkgq";
+		String password = "ljkukrmmfw0pwtue";
 				
 		try {
 			// Connect to the database:
