@@ -15,15 +15,13 @@ import com.reportingapp.beans.Currency;
  *
  */
 @Local
-public interface ICurrencyService
-{
+public interface ICurrencyService {
 	/**
 	 * Method for returning all currencies in the database which will call on our DAO.
 	 * @return List<Currency>
 	 * @throws Exception
 	 */
-	public List<Currency> getAllCurrencies() throws Exception;
-	
+	public List<Currency> getAllCurrencies() throws Exception;	
 	/**
 	 * Method for adding or updating a list of currencies in the database.
 	 * @return boolean

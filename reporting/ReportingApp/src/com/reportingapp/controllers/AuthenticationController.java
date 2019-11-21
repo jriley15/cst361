@@ -1,13 +1,18 @@
 package com.reportingapp.controllers;
 
 import java.io.IOException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.interceptor.Interceptors;
 import com.reportingapp.beans.Registration;
 import com.reportingapp.beans.User;
 import com.reportingapp.services.business.IAuthenticationService;
+import com.reportingapp.services.util.LoggingInterceptor;
+import com.reportingapp.services.util.LoggingService;
+import com.reportingapp.services.util.LoggingService.LogLevel;
 
 // Trevor Moore
 // CST 361
@@ -19,12 +24,17 @@ import com.reportingapp.services.business.IAuthenticationService;
  * @author Trevor
  *
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class AuthenticationController {
+@Interceptors(LoggingInterceptor.class)
+public class AuthenticationController implements Serializable {
+	private static final long serialVersionUID = -7444770772927830438L;
 	// Inject our authentication service.
 	@Inject
 	IAuthenticationService authenticationService;
+	// Inject our Logging Service.
+	@Inject
+	private LoggingService logger;
 	/**
 	 * Method for handling logins.
 	 * @return String (view)
@@ -36,7 +46,7 @@ public class AuthenticationController {
 			User user = contxt.getApplication().evaluateExpressionGet(contxt, "#{user}", User.class);
 			
 			// If user's Username and Password are in the database, return LoginResponse, else LoginFailed.
-			if(authenticationService.loginCheck(user)) {
+			if (authenticationService.loginCheck(user)) {
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 				FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("user", user);
 				return "LoginResponse.xhtml";
@@ -45,8 +55,9 @@ public class AuthenticationController {
 				return "LoginFailed.xhtml";			
 			}
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationController", "onLogin", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 		// Return the generic error page if the login didn't fail and it also wasn't successful.
@@ -72,8 +83,9 @@ public class AuthenticationController {
 				return "RegisterFailed.xhtml";
 			}
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationController", "onRegister", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 		// Return the generic error page if the registration wasn't successful.
@@ -89,8 +101,9 @@ public class AuthenticationController {
 			if(!FacesContext.getCurrentInstance().getExternalContext().getSessionMap().containsKey("user"))
 				FacesContext.getCurrentInstance().getExternalContext().redirect("LoginForm.xhtml");			
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationController", "check", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -102,8 +115,9 @@ public class AuthenticationController {
 			// Remove the user from the session map.
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("user");
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationController", "removeFromSession", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 	}

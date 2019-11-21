@@ -1,12 +1,17 @@
 package com.reportingapp.controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.interceptor.Interceptors;
 import com.reportingapp.beans.Currency;
 import com.reportingapp.services.business.ICurrencyService;
+import com.reportingapp.services.util.LoggingInterceptor;
+import com.reportingapp.services.util.LoggingService;
+import com.reportingapp.services.util.LoggingService.LogLevel;
 
 // Trevor Moore
 // CST 361
@@ -18,28 +23,29 @@ import com.reportingapp.services.business.ICurrencyService;
  * @author Trevor
  *
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class CurrencyController 
-{
+@Interceptors(LoggingInterceptor.class)
+public class CurrencyController implements Serializable {
+	private static final long serialVersionUID = 7473923518828646579L;
 	// Inject our Currency Service.
 	@Inject
 	ICurrencyService currencyService;
-	
+	// Inject our Logging Service.
+	@Inject
+	private LoggingService logger;
 	/**
 	 * Method for returning all currency data in the database.
 	 * @return List<Currency>
 	 */
-	public List<Currency> getAllCurrencies() 
-	{
-		try 
-		{
+	public List<Currency> getAllCurrencies() {
+		try {
 			// Call getAllCurrencies on our currency service.
 			return currencyService.getAllCurrencies();
 		}
 		// Catch any exceptions and print the stack trace.
-		catch (Exception e)
-		{
+		catch (Exception e) {
+			logger.log("CurrencyController", "getAllCurrencies", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 		// Return an empty array list of currency if something went wrong.

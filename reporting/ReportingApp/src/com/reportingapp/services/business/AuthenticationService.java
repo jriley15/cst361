@@ -2,14 +2,18 @@ package com.reportingapp.services.business;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import com.reportingapp.beans.Registration;
 import com.reportingapp.beans.User;
 import com.reportingapp.services.data.AuthenticationDAO;
+import com.reportingapp.services.util.LoggingInterceptor;
+import com.reportingapp.services.util.LoggingService;
+import com.reportingapp.services.util.LoggingService.LogLevel;
 
 // Trevor Moore
 // CST 361
@@ -24,10 +28,14 @@ import com.reportingapp.services.data.AuthenticationDAO;
 @Stateless
 @Local(IAuthenticationService.class)
 @Alternative
+@Interceptors(LoggingInterceptor.class)
 public class AuthenticationService implements IAuthenticationService {
 	// EJB Property of our AuthenticationDAO.
 	@EJB
 	private AuthenticationDAO service;
+	// Inject our Logging Service.
+	@Inject
+	private LoggingService logger;
 	// Default constructor.
 	public AuthenticationService() {
 	}
@@ -55,8 +63,9 @@ public class AuthenticationService implements IAuthenticationService {
 				return true;
 			}
 		}
-		// Catch any exceptions and throw it.
+		// Catch any exceptions and throw it. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationService", "registerUser", LogLevel.SEVERE, e.getMessage());
 			throw e;
 		}
 	}
@@ -80,8 +89,9 @@ public class AuthenticationService implements IAuthenticationService {
 			// Else return false
 			return false;
 		}
-		// Catch any exceptions and throw it.
+		// Catch any exceptions and throw it. Log the message.
 		catch (Exception e) {
+			logger.log("AuthenticationService", "registerUser", LogLevel.SEVERE, e.getMessage());
 			throw e;
 		}
 	}

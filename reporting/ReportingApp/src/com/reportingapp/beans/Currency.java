@@ -15,8 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @ManagedBean
 @XmlRootElement(name="Currency")
-public class Currency
-{
+public class Currency {
 	// Properties
 	private String currencyISOCode = "";
 	private String currencyName = "";
@@ -24,14 +23,9 @@ public class Currency
 	private String currencySymbol = "";
 	private double currencyUSDExchangeRate = 0.0;
 	private String dateRecorded = "";
-	
-	public Currency()
-	{
-		
+	public Currency() {
 	}
-	
-	public Currency(String currencyISOCode, String currencyName, String currencyCountry, String currencySymbol, double currencyUSDExchangeRate, String dateRecorded) 
-	{
+	public Currency(String currencyISOCode, String currencyName, String currencyCountry, String currencySymbol, double currencyUSDExchangeRate, String dateRecorded) {
 		this.currencyISOCode = currencyISOCode;
 		this.currencyName = currencyName;
 		this.currencyCountry = currencyCountry;
@@ -39,7 +33,6 @@ public class Currency
 		this.currencyUSDExchangeRate = currencyUSDExchangeRate;
 		this.dateRecorded = dateRecorded;
 	}
-	
 	public String getCurrencyISOCode() {
 		return currencyISOCode;
 	}

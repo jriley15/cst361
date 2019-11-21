@@ -26,7 +26,6 @@ public class User {
 	@Size(min=8, max=25)
 	private String password = "";
 	public User() {
-
 	}
 	public User(String username, String password) {
 		this.username = username;

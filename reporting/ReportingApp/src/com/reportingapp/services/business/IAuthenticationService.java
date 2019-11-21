@@ -15,8 +15,7 @@ import com.reportingapp.beans.User;
  *
  */
 @Local
-public interface IAuthenticationService 
-{
+public interface IAuthenticationService {
 	/**
 	 * Method for inserting user into the database by using the DataConnection class's methods.
 	 * @param user type Register

@@ -10,7 +10,12 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import com.reportingapp.beans.Registration;
+import com.reportingapp.services.util.LoggingInterceptor;
+import com.reportingapp.services.util.LoggingService;
+import com.reportingapp.services.util.LoggingService.LogLevel;
 
 // Trevor Moore
 // CST 361
@@ -25,7 +30,11 @@ import com.reportingapp.beans.Registration;
 @Stateless
 @Local(IDAO.class)
 @LocalBean
+@Interceptors(LoggingInterceptor.class)
 public class AuthenticationDAO implements IDAO<Registration> {
+	// Inject our Logging Service.
+	@Inject
+	private LoggingService logger;
 	// Default constructor.
 	public AuthenticationDAO() {
 	}
@@ -62,8 +71,9 @@ public class AuthenticationDAO implements IDAO<Registration> {
 			rs.close();
 			stmnt.close();
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message:
 		catch(SQLException e) {
+			logger.log("AuthenticationDAO", "getAll", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 		// Closing connection.
@@ -73,8 +83,9 @@ public class AuthenticationDAO implements IDAO<Registration> {
 					// Close the connection.
 					conn.close();
 				}
-				// Catch any exceptions and print the stack trace.
+				// Catch any exceptions and print the stack trace. Log the message:
 				catch(SQLException e) {
+					logger.log("AuthenticationDAO", "getAll", LogLevel.SEVERE, e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -112,8 +123,9 @@ public class AuthenticationDAO implements IDAO<Registration> {
 			stmnt.executeUpdate(sql);
 			
 		}
-		// Catching exceptions and throw it.
+		// Catching exceptions and throw it. Log the message:
 		catch (Exception e) {
+			logger.log("AuthenticationDAO", "add", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -124,8 +136,9 @@ public class AuthenticationDAO implements IDAO<Registration> {
 					// Close the connection.
 					conn.close();
 				}
-				// Catching exceptions and print the stack trace.
+				// Catching exceptions and print the stack trace. Log the message:
 				catch (SQLException e) {
+					logger.log("AuthenticationDAO", "add", LogLevel.SEVERE, e.getMessage());
 					e.printStackTrace();
 					return false;
 				}

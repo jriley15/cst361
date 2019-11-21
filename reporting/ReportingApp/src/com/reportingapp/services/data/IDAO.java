@@ -14,8 +14,7 @@ import javax.ejb.Local;
  *
  */
 @Local
-public interface IDAO<T>
-{
+public interface IDAO<T> {
 	/**
 	 * Generic contract method for getting all objects from the database.
 	 */

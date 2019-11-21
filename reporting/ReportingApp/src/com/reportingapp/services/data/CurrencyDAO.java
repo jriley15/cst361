@@ -12,7 +12,12 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import com.reportingapp.beans.Currency;
+import com.reportingapp.services.util.LoggingInterceptor;
+import com.reportingapp.services.util.LoggingService;
+import com.reportingapp.services.util.LoggingService.LogLevel;
 
 // Trevor Moore
 // CST 361
@@ -27,7 +32,11 @@ import com.reportingapp.beans.Currency;
 @Stateless
 @Local(IDAO.class)
 @LocalBean
+@Interceptors(LoggingInterceptor.class)
 public class CurrencyDAO implements IDAO<Currency> {
+	// Inject our Logging Service.
+	@Inject
+	private LoggingService logger;
 	// Default constructor
 	public CurrencyDAO() {
 	}
@@ -65,8 +74,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 			rs.close();
 			stmnt.close();
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message:
 		catch(SQLException e) {
+			logger.log("CurrencyDAO", "getAll", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 		}
 		// Closing connection.
@@ -76,8 +86,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 					// Close the connection.
 					conn.close();
 				}
-				// Catch any exceptions and print the stack trace.
+				// Catch any exceptions and print the stack trace. Log the message
 				catch(SQLException e) {
+					logger.log("CurrencyDAO", "getAll", LogLevel.SEVERE, e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -116,8 +127,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 			stmt.executeUpdate(sql);
 			stmt.close();
 		}
-		// Catch any exceptions and print the stack trace.
+		// Catch any exceptions and print the stack trace. Log the message:
 		catch(SQLException e) {
+			logger.log("CurrencyDAO", "add", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 			// Return false if not successful:
 			return false;
@@ -129,8 +141,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 					// Close the connection.
 					conn.close();
 				}
-				// Catch any exceptions and print the stack trace.
+				// Catch any exceptions and print the stack trace. Log the message:
 				catch(SQLException e) {
+					logger.log("CurrencyDAO", "add", LogLevel.SEVERE, e.getMessage());
 					e.printStackTrace();
 					// Return false if not successful:
 					return false;
@@ -162,8 +175,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 			stmnt.executeUpdate(sql);
 			stmnt.close();
 		}
-		//catching exceptions and print fail
+		// Catching exceptions and print fail. Log the message:
 		catch(SQLException e) {
+			logger.log("CurrencyDAO", "update", LogLevel.SEVERE, e.getMessage());
 			e.printStackTrace();
 			// Return false if not successful:
 			return false;
@@ -175,7 +189,9 @@ public class CurrencyDAO implements IDAO<Currency> {
 					// Closing connection:
 					conn.close();
 				}
+				// Catching exceptions and print fail. Log the message:
 				catch(SQLException e) {
+					logger.log("CurrencyDAO", "update", LogLevel.SEVERE, e.getMessage());
 					e.printStackTrace();
 					// Return false if not successful:
 					return false;
