@@ -48,7 +48,7 @@ namespace IoTDevice
                 //log currencies to console
                 foreach (var currency in currencies)
                 {
-                    _logger.LogDebug("Currency: " + currency.CurrencyISOCode + " = " + currency.CurrencyUSDExchangeRate + " USD");
+                    _logger.LogDebug("Currency: " + currency.CurrencyIsoCode + " = " + currency.CurrencyUsdExchangeRate + " USD");
                 }
 
                 //sleep for 10 seconds
