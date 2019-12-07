@@ -1,11 +1,11 @@
-﻿using System;
-
-namespace IoTDevice.Data
+﻿namespace IoTDevice.Data
 {
-    //currency data model
+    /// <summary>
+    /// Currency Object Class
+    /// </summary>
     public class Currency
     {
         public CurrencyType Type { get; set; }
-        public Decimal Value { get; set; }
+        public decimal Value { get; set; }
     }
 }

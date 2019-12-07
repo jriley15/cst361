@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IoTDevice.Data
+﻿namespace IoTDevice.Data
 {
+    /// <summary>
+    /// Currency Dto class object
+    /// </summary>
     public class CurrencyDto
     {
-        public string currencyISOCode { get; set; }
+        public string CurrencyIsoCode { get; set; }
 
-        public decimal currencyUSDExchangeRate { get; set; }
+        public decimal CurrencyUsdExchangeRate { get; set; }
     }
 }

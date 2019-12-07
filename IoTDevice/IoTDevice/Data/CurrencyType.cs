@@ -1,7 +1,8 @@
 ﻿namespace IoTDevice.Data
 {
-    //currency type enum
-
+    /// <summary>
+    /// Currency type enum that represents the supported currencies for the API we chose
+    /// </summary>
     public enum CurrencyType
     {
         SGD,

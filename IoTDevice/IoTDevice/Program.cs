@@ -5,13 +5,25 @@ using Microsoft.Extensions.Hosting;
 
 namespace IoTDevice
 {
+    /// <summary>
+    /// Main application entry point
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main void
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// Host builder method that configures the container and kicks off the worker service
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
 
             Host.CreateDefaultBuilder(args)
@@ -29,21 +41,14 @@ namespace IoTDevice
                         client.Timeout = TimeSpan.FromSeconds(3);
                     });
 
-                    //JavaEE REST API client
+                    //JavaEE REST API client config
                     services.AddHttpClient("JavaEERest", client =>
                     {
                         client.BaseAddress = new Uri("http://localhost:8080");
                         client.Timeout = TimeSpan.FromSeconds(5);
                     });
 
-                    //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-                    //{
-                    //    TimeSpan.FromSeconds(1),
-                    //    TimeSpan.FromSeconds(5),
-                    //    TimeSpan.FromSeconds(10)
-                    //}));
-
-                    //adds worker to container and begins executing it
+                    //adds worker to container and begins executing it on its own thread
                     services.AddHostedService<Worker>();
                 });
     }
