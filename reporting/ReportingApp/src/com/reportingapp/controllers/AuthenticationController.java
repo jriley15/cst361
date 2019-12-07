@@ -93,7 +93,7 @@ public class AuthenticationController implements Serializable {
 	}
 	/**
 	 * Method for checking if a user is logged in.
-	 * @throws IOException
+	 * @throws IOException throws IOException
 	 */
 	public void check() throws IOException {
 		try {

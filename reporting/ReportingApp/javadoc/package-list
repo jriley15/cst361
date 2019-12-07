@@ -1,0 +1,5 @@
+com.reportingapp.beans
+com.reportingapp.controllers
+com.reportingapp.services.business
+com.reportingapp.services.data
+com.reportingapp.services.util

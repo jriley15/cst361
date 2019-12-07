@@ -1,10 +1,7 @@
 package com.reportingapp.services.util;
 
-import com.reportingapp.beans.Currency;
 import com.reportingapp.beans.DTO;
 import com.reportingapp.beans.DTOBase;
-import com.reportingapp.beans.Registration;
-import com.reportingapp.beans.User;
 
 // Trevor Moore
 // CST 361
@@ -25,6 +22,9 @@ public class Factory {
 	 * Method for getting DTO objects.
 	 * @param <T> type Generic
 	 * @param type enum DTOType
+	 * @param errorCode type int
+	 * @param message type String
+	 * @param data T type Generic
 	 * @return type DTOBase
 	 */
 	public static <T> DTOBase getDTO(DTOType type, int errorCode, String message, T data) {
@@ -39,41 +39,6 @@ public class Factory {
 			// Default return DTOBase
 			default:
 				return new DTOBase(errorCode, message);
-		}
-	}
-	/**
-	 * Method for getting Currency objects.
-	 * @param type enum CurrencyType
-	 * @return type Currency
-	 */
-	public static Currency getCurrency(CurrencyType type) {
-		// Switch on the type:
-		switch (type) {
-			// Return Currency on type Currency
-			case CURRENCY:
-				return new Currency();
-			// Default return Currency
-			default:
-				return new Currency();
-		}
-	}
-	/**
-	 * Method for getting input types (for forms, etc.).
-	 * @param type enum InputType
-	 * @return type User
-	 */
-	public static User getInput(InputType type) {
-		// Switch on the type:
-		switch (type) {
-			// Return User on type User
-			case USER:
-				return new User();
-			// Return Registration on type Registration
-			case REGISTRATION:
-				return new Registration();
-			// Default return User
-			default:
-				return new User();
 		}
 	}
 }

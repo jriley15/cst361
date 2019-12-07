@@ -19,14 +19,15 @@ public interface IAuthenticationService {
 	/**
 	 * Method for inserting user into the database by using the DataConnection class's methods.
 	 * @param user type Register
-	 * @throws Exception 
+	 * @return boolean
+	 * @throws Exception throws Exception
 	 */
 	public boolean registerUser(Registration user) throws Exception;
 	/**
 	 * Method for checking if user's username and password is in database by using the DataConnection class's methods.
 	 * @param user type Register
 	 * @return boolean
-	 * @throws Exception 
+	 * @throws Exception throws Exception
 	 */
 	public boolean loginCheck(User user) throws Exception;
 }

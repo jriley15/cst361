@@ -41,8 +41,8 @@ public class AuthenticationService implements IAuthenticationService {
 	}
 	/**
 	 * Method for inserting user into the database by using the DataConnection class's methods.
-	 * @param user type Register
-	 * @throws Exception 
+	 * @param registration type Register
+	 * @throws Exception throws Exception
 	 */
 	@Override
 	public boolean registerUser(Registration registration) throws Exception {
@@ -73,7 +73,7 @@ public class AuthenticationService implements IAuthenticationService {
 	 * Method for checking if user's username and password is in database by using the DataConnection class's methods.
 	 * @param user type Register
 	 * @return boolean
-	 * @throws Exception 
+	 * @throws Exception throws Exception
 	 */
 	@Override
 	public boolean loginCheck(User user) throws Exception {

@@ -43,7 +43,7 @@ public class CurrencyRESTService {
 	private LoggingService logger;
 	/**
 	 * Method for returning all currency data in the database.
-	 * @return
+	 * @return DTOBase Data Transfer Object
 	 */
 	@GET
 	@Path("/getcurrencies")
@@ -63,7 +63,8 @@ public class CurrencyRESTService {
 	}
 	/**
 	 * Method for adding a currency to the database
-	 * @return
+	 * @param currencies List Currency list of Currency objects
+	 * @return DTOBase Data Transfer Object
 	 */
 	@POST
 	@Path("/addorupdatecurrencies")

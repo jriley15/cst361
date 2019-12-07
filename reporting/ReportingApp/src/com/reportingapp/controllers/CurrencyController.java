@@ -36,7 +36,7 @@ public class CurrencyController implements Serializable {
 	private LoggingService logger;
 	/**
 	 * Method for returning all currency data in the database.
-	 * @return List<Currency>
+	 * @return List Currency returns a list of Currency Objects
 	 */
 	public List<Currency> getAllCurrencies() {
 		try {

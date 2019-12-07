@@ -40,8 +40,8 @@ public class CurrencyService implements ICurrencyService {
 	}
 	/**
 	 * Method for returning all currencies in the database which will call on our DAO.
-	 * @return List<Currency>
-	 * @throws Exception
+	 * @return List Currency list of Currency objects
+	 * @throws Exception throws Exception
 	 */
 	@Override
 	public List<Currency> getAllCurrencies() throws Exception {
@@ -58,7 +58,7 @@ public class CurrencyService implements ICurrencyService {
 	/**
 	 * Method for returning adding or updating a currency in the database.
 	 * @return boolean
-	 * @throws Exception
+	 * @throws Exception throws Exception
 	 */
 	@Override
 	public boolean addOrUpdateCurrencies(List<Currency> currencies) throws Exception {
